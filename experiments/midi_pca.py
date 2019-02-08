@@ -82,7 +82,7 @@ pca = PCA(n_components=2)
 pca.fit(measure_notes)
 reduced_notes = pca.transform(measure_notes)
 
-colors = cm.rainbow(np.linspace(0, 1, len(reduced_notes)))
+colors = cm.rainbow(np.linspace(0, 1, 16))
 
 plt.scatter(*zip(*reduced_notes), c=colors)
 plt.show()
