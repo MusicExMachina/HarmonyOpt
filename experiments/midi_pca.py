@@ -7,6 +7,7 @@ import matplotlib.pyplot as plt
 import matplotlib.cm as cm
 import mido
 import copy
+import scipy.spatial.distance as dist
 import time
 
 from sklearn.decomposition import PCA
@@ -78,11 +79,23 @@ for i in range(0, len(measure_notes)):
         if note[2] > i*24:
             measure_notes[i][note[0] % 12] += min(note[2], i*24 + 384) - max(note[1], i*24)
 
-pca = PCA(n_components=2)
+pca = PCA(n_components=10)
 pca.fit(measure_notes)
 reduced_notes = pca.transform(measure_notes)
 
 colors = cm.rainbow(np.linspace(0, 1, 16))
 
-plt.scatter(*zip(*reduced_notes), c=colors)
-plt.show()
+#plt.scatter(*zip(*reduced_notes), c=colors)
+#plt.show()
+
+measure_vectors = []
+
+for i in range(0, len(reduced_notes)-1):
+    measure_vectors.append(reduced_notes[i+1]-reduced_notes[i])
+
+cosine_dist = []
+
+for i in range(0, len(measure_vectors)-1):
+    cosine_dist.append(dist.cosine(measure_vectors[i], measure_vectors[i+1]))
+
+yeet = []
