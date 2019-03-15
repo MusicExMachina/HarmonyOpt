@@ -97,3 +97,5 @@ cosine_dist = []
 
 for i in range(0, len(measure_vectors)-1):
     cosine_dist.append(dist.cosine(measure_vectors[i], measure_vectors[i+1]))
+    if cosine_dist.__len__() > 1 and np.isnan(cosine_dist[cosine_dist.__len__() - 1]):
+        cosine_dist[cosine_dist.__len__() - 1] = cosine_dist[cosine_dist.__len__() - 2]
